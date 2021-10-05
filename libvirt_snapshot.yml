@@ -4,4 +4,4 @@
   become: yes
   tasks:
     - name: create vm snapshot in libvirt
-      shell: 'virsh snapshot-create-as {{ ansible_hostname }} {{ ansible_hostname }}-pre-patching'
+      shell: "virsh snapshot-create-as {{ ansible_hostname }} {{ ansible_hostname }}-pre-patching"
