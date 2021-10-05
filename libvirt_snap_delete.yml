@@ -1,0 +1,7 @@
+---
+- name: create a snapshot of a system in libvirt
+  hosts: all
+  become: yes
+  tasks:
+    - name: create vm snapshot in libvirt
+      shell: 'virsh snapshot-delete {{ ansible_hostname }} {{ ansible_hostname }}-pre-patching'
