@@ -1,6 +1,6 @@
 ---
 - name: create a snapshot of a system in libvirt
-  hosts: lab
+  hosts: all
   become: yes
   #vars: requires patch_utils_host_filter set to match libvirt domain pattern
   tasks:

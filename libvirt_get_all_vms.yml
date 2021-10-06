@@ -1,6 +1,6 @@
 ---
 - name: test to get names from libvirt
-  hosts: lab
+  hosts: all
   become: yes
   tasks:
     - name: list all vms in libvirt instance
