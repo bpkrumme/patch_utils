@@ -1,7 +1,14 @@
 ---
 - name: create a snapshot of a system in libvirt
-  hosts: all
+  hosts: lab
   become: yes
+  #vars: requires patch_utils_host_filter set to match libvirt domain pattern
   tasks:
-    - name: create vm snapshot in libvirt
-      shell: "virsh snapshot-delete {{ ansible_hostname }} {{ ansible_hostname }}-pre-patching"
+    - name: get a list of vms in libvirt
+      community.libvirt.virt:
+        command: list_vms
+      register: libvirt_names
+
+    - name: delete vm snapshot in libvirt
+      shell: "virsh snapshot-delete {{ item }} {{ item }}-pre-patching"
+      loop: "{{ libvirt_names.list_vms | select('match', patch_utils_host_filter) | list }}"

@@ -1,0 +1,14 @@
+---
+- name: test to get names from libvirt
+  hosts: lab
+  become: yes
+  tasks:
+    - name: list all vms in libvirt instance
+      community.libvirt.virt:
+        command: list_vms
+      register: libvirt_names
+
+    - name: print output based on hostname
+      ansible.builtin.debug:
+        msg: "{{ item }} is in the list"
+      loop: "{{ libvirt_names.list_vms }}"
