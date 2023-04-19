@@ -1,13 +1,13 @@
 ---
-- name: reboot a system
-  hosts: all
+- name: Reboot a system
+  hosts: all,!satellite.bk.lab
   gather_facts: false
   become: true
-  #vars: requires patch_utils_reboot_msg set to log why the reboot is being done
+  # vars: requires patch_utils_reboot_msg set to log why the reboot is being done
   tasks:
-    - name: reboot a system
-      reboot:
+    - name: Reboot a system
+      ansible.builtin.reboot:
         reboot_timeout: 1200
-        msg: "{{ patch_utils_reboot_msg }}"
+        msg: "{{ patch_utils_reboot_msg | default(omit) }}"
         pre_reboot_delay: 60
         post_reboot_delay: 60
