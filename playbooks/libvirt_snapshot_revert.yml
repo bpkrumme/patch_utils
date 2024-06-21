@@ -1,14 +1,14 @@
 ---
-- name: create a snapshot of a system in libvirt
+- name: Revert to a snapshot of a system in libvirt
   hosts: all
-  become: yes
+  become: true
   #vars: requires patch_utils_host_filter set to match libvirt domain pattern
   tasks:
-    - name: get a list of vms in libvirt
+    - name: Get a list of vms in libvirt
       community.libvirt.virt:
         command: list_vms
       register: libvirt_names
 
-    - name: delete vm snapshot in libvirt
-      shell: "virsh snapshot-delete {{ item }} {{ item }}-pre-patching"
+    - name: Revert to vm snapshot in libvirt
+      shell: "virsh snapshot-revert {{ item }} {{ item }}-pre-patching --running"
       loop: "{{ libvirt_names.list_vms | select('match', patch_utils_host_filter) | list }}"
