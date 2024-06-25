@@ -1,6 +1,6 @@
 ---
 - name: Reboot a system
-  hosts: all,!satellite.bk.lab
+  hosts: all
   gather_facts: false
   become: true
   # vars: requires patch_utils_reboot_msg set to log why the reboot is being done

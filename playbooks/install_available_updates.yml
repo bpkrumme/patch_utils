@@ -1,6 +1,6 @@
 ---
 - name: Install all available updates from satellite
-  hosts: all,!satellite.bk.lab
+  hosts: all
   gather_facts: false
   become: true
   tasks:
